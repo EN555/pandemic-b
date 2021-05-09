@@ -12,7 +12,9 @@ Board::Board() {
     if(!file.is_open()){    //check if succeed to open the files
         throw runtime_error("Didn't succeed to open the file!");
     }
-    std::string city, color, connection;
+    string city;
+    string color;
+    string connection;
 
     while(!file.eof()){
         file >> city >> color;
@@ -104,26 +106,16 @@ void Board::add_cure_for_color(Color color){  //add cure for desease
 
 bool Board::is_connected(City city1, City city2){  //check if the current location connect to this location
     auto ptr = connections.find(city1)->second;
-    if(ptr.find(city2) != ptr.end()){
-        return true;
-    }
-    return false;
+    return ptr.find(city2) != ptr.end();
+
 }
 
 bool Board::is_have_have_research_station(City city){
-    if(research_station.find(city) !=research_station.end()){
-        return true;
-    }
-    else{
-        return false;
-    }
+   return research_station.find(city) !=research_station.end();
 }
 
-bool Board::is_have_cure_desease(Color color){
-    if(is_have_cure.find(color) == is_have_cure.end()){ //didn't yet cure for this desease
-        return false;
-    }
-    return true;
+bool Board::is_have_cure_desease(Color color) {
+    return is_have_cure.find(color) != is_have_cure.end(); //didn't yet cure for this desease
 }
 
 Color Board::city_to_color(City city){

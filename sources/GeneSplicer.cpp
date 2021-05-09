@@ -12,6 +12,7 @@ GeneSplicer::GeneSplicer(Board& board, City city):Player(board,city){
 
 GeneSplicer& GeneSplicer::discover_cure(Color color){
 
+    const int number_of_need_cards = 5;
     if(!board.is_have_have_research_station(current_location)){ //check if have research station
         throw invalid_argument("can't build in city without research station!!");
     }
@@ -19,7 +20,7 @@ GeneSplicer& GeneSplicer::discover_cure(Color color){
         return *this;
     }
 
-    if(mine_cards.size() < 5){  //not enough cards
+    if(mine_cards.size() < number_of_need_cards){  //not enough cards
         throw invalid_argument("you havn't enough cards!!");
     }
     std::set<City> remove_the_cards;
@@ -28,7 +29,7 @@ GeneSplicer& GeneSplicer::discover_cure(Color color){
         remove_the_cards.insert(curr);
         counter++;
     }
-    if(counter < 5){
+    if(counter < number_of_need_cards){
         throw invalid_argument("you havn't enough cards!!");
     }
     for(City curr : remove_the_cards){

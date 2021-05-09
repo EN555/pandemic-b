@@ -40,14 +40,11 @@ Player& Player::fly_direct(City city){
     if (!board.is_city_exist(city)) {  //so he can take this card
         throw invalid_argument("the city isn't in the map!!");
     }
-    if(mine_cards.find(city) != mine_cards.end()){  // find the card
-        mine_cards.erase(city); //remove the card
-        current_location = city;
-        return *this;
-    }
-    else{
+    if(mine_cards.find(city) == mine_cards.end()){  // find the card
         throw invalid_argument("you can't fly direct to this city!!");
     }
+    mine_cards.erase(city); //remove the card
+    current_location = city;
     return *this;
 }
 Player& Player::fly_charter(City city){
@@ -57,14 +54,12 @@ Player& Player::fly_charter(City city){
     if (!board.is_city_exist(city)) {  //so he can take this card
         throw invalid_argument("the city isn't in the map!!");
     }
-    if(mine_cards.find(current_location) != mine_cards.end()){  //the card exist in his mine cards
-        mine_cards.erase(current_location);
-        current_location = city;
-        return *this;
-    }
-    else{
+    if(mine_cards.find(current_location) == mine_cards.end()){  //the card exist in his mine cards
         throw invalid_argument("you can't fly charter to this city!!");
     }
+    mine_cards.erase(current_location);
+    current_location = city;
+    return *this;
     return *this;
 }
 Player& Player::fly_shuttle(City city){
